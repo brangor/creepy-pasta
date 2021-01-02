@@ -1,12 +1,6 @@
 body {
   background-color: black;
   color: white;
-}
-
-.fondamento {
-  font-family: 'Fondamento', cursive;
-}
-.josefin-sans {
   font-family: 'Josefin Sans', sans-serif;
 }
 
@@ -14,8 +8,12 @@ body {
   padding-left: 4rem;
 }
 
+h1, h3 {
+  font-family: 'Fondamento', cursive;
+}
+
 #body {
-  padding: 1rem 3rem 0rem 2rem;
+  padding: 1rem 3rem 0rem 3rem;
 }
 
 button {
@@ -24,13 +22,28 @@ button {
   margin: 1rem;
   position: inline-block;
   float: left;
+  min-width: 6.5rem;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.inverted {
+  background-color: black;
+  color: white;
+  border-color: white;
 }
 
 #info-panel {
   padding-bottom: 3rem;
 }
 
-#info-panel > p {
-  padding-left: 2rem;
+#track-title {
+  padding-left: 0.3rem;
   color: red;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+#controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
