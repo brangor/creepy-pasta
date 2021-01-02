@@ -14,7 +14,7 @@ current_ambiance_id = -1;
 
 var prefixes = ["Deadly","Death","Scarlet","Forbidden","Feral","Mourning","Destined","Hallowed","Demon","Death","Fallen","Demon","Slaves","Raven","Phantom", "Blood"];
 var suffixes = ["Embrace","Craving","Mistress","Betrayal","Secret","Love","Shadow","Hunger","Wine","Gravy","Sins","Moon","Spiders","Eternal","Sorrow","Light","Lament", "Moonlight"];
-var mixins = ["and", "of the", "of", "in", "with endless", "under the"];
+var mixins = ["And", "Of The", "Of", "In", "With Endless", "Under The"];
 
 function getRandomInt(max, lastValue = -1) {
   var randomInt = Math.floor(Math.random() * Math.floor(max));
@@ -49,7 +49,7 @@ function stopClip(clip) {
 function silencio() {
   stopClip(screams[current_scream_id]);
   stopClip(ambiances[current_ambiance_id]);
-  document.getElementById('track-title').innerHTML = "None playing";
+  document.getElementById('track-title').innerHTML = "None";
 }
 
 function playScreamClip() {
