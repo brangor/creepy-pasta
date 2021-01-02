@@ -57,6 +57,14 @@ button {
   font-family: 'Josefin Sans', sans-serif;
 }
 
+#next-track-btn, #scream-btn {
+  flex-grow: 1;
+}
+
+#silencio-btn {
+  flex-grow: 2;
+}
+
 #controls {
   display: flex;
   flex-wrap: wrap;
