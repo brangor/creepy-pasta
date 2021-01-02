@@ -65,9 +65,12 @@ function nextAmbiance() {
 
   current_ambiance_id = getRandomInt(AMBIANCE_COUNT, current_ambiance_id);
 
-  changeTitle();
+  var ambiance = ambiances[current_ambiance_id];
+  ambiance.volume = 0.7;
+  ambiance.loop = true;
 
-  ambiances[current_ambiance_id].play();
+  changeTitle();
+  ambiance.play();
 };
 
 function changeTitle() {
