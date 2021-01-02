@@ -5,11 +5,22 @@ body {
 }
 
 #header {
-  padding-left: 4rem;
+  display: flex;
+  justify-content: space-around;
 }
 
 h1, h3 {
   font-family: 'Fondamento', cursive;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+@media screen and (min-width: 768px) {
+  h1 {
+    font-size: 4rem;
+  }
 }
 
 #body {
