@@ -78,7 +78,7 @@ function playAmbiance(audio) {
   audio.addEventListener('timeupdate', function(){
       var buffer = .75
       if(this.currentTime > this.duration - buffer){
-          this.currentTime = 0
+          this.currentTime = 0.3
           this.play()
       }
   });
