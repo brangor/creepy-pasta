@@ -65,14 +65,26 @@ function nextAmbiance() {
 
   current_ambiance_id = getRandomInt(AMBIANCE_COUNT, current_ambiance_id);
 
-  var ambiance = ambiances[current_ambiance_id];
-  ambiance.volume = 0.7;
-  ambiance.loop = true;
+  playAmbiance(ambiances[current_ambiance_id]);
 
   changeTitle();
-  ambiance.play();
 };
 
 function changeTitle() {
   document.getElementById('track-title').innerHTML = getRandomTitle();
+}
+
+function playAmbiance(audio) {
+  audio.addEventListener('timeupdate', function(){
+      var buffer = .75
+      if(this.currentTime > this.duration - buffer){
+          this.currentTime = 0
+          this.play()
+      }
+  });
+
+  audio.volume = 0.7;
+  audio.loop = true;
+
+  audio.play();
 }
