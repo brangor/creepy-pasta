@@ -3,11 +3,11 @@ AUDIO_DIR = "assets/sounds/";
 SCREAM_COUNT = 24;
 SCREAM_DIR = AUDIO_DIR + "screams/";
 
-AMBIANCE_COUNT = 14;
+AMBIANCE_COUNT = 20;
 AMBIANCE_DIR = AUDIO_DIR + "soundtracks/";
 
 screams = [...Array(SCREAM_COUNT).keys()].map(i => new Audio(SCREAM_DIR + (i + 1) + ".wav"));
-ambiances = [...Array(AMBIANCE_COUNT).keys()].map(i => new Audio(AMBIANCE_DIR + (i + 1) + ".wav"));
+ambiances = [...Array(AMBIANCE_COUNT).keys()].map(i => new Audio(AMBIANCE_DIR + (i + 1) + ".mp3"));
 
 current_scream_id = -1;
 current_ambiance_id = -1;
