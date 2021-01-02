@@ -1,0 +1,36 @@
+body {
+  background-color: black;
+  color: white;
+}
+
+.fondamento {
+  font-family: 'Fondamento', cursive;
+}
+.josefin-sans {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+#header {
+  padding-left: 4rem;
+}
+
+#body {
+  padding: 1rem 3rem 0rem 2rem;
+}
+
+button {
+  border-radius: 0;
+  font-size: 20px;
+  margin: 1rem;
+  position: inline-block;
+  float: left;
+}
+
+#info-panel {
+  padding-bottom: 3rem;
+}
+
+#info-panel > p {
+  padding-left: 2rem;
+  color: red;
+}
