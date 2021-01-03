@@ -12,9 +12,9 @@ ambiances = [...Array(AMBIANCE_COUNT).keys()].map(i => new Audio(AMBIANCE_DIR + 
 current_scream_id = -1;
 current_ambiance_id = -1;
 
-var prefixes = ["Deadly","Death","Scarlet","Forbidden","Feral","Mourning","Destined","Hallowed","Demon","Death","Fallen","Demon","Slaves","Raven","Phantom", "Blood"];
-var suffixes = ["Embrace","Craving","Mistress","Betrayal","Secret","Love","Shadow","Hunger","Wine","Gravy","Sins","Moon","Spiders","Eternal","Sorrow","Light","Lament", "Moonlight"];
-var mixins = ["And", "Of The", "Of", "In", "With Endless", "Under The"];
+var prefixes = ["Deadly","Death","Scarlet","Forbidden","Feral","Mourning","Destined","Hallowed","Demon","Death","Fallen","Demon","Slaves","Raven","Phantom", "Blood", "Satan", "Hell", "Thirsty", "Starving", "Corpse"];
+var suffixes = ["Embrace","Craving","Mistress","Betrayal","Secret","Love","Shadow","Hunger","Wine","Gravy","Sins","Moon","Spiders","Eternal","Sorrow","Light","Lament", "Moonlight", "Dungeons", "Torturer", "Yearnings", "Decay", "Silence"];
+var mixins = ["And", "Of The", "Of", "In", "With Endless", "Under The", "Betwixt The"];
 
 function getRandomInt(max, lastValue = -1) {
   var randomInt = Math.floor(Math.random() * Math.floor(max));
