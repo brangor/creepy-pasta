@@ -7,7 +7,7 @@ AMBIANCE_COUNT = 20;
 AMBIANCE_DIR = AUDIO_DIR + "soundtracks/";
 
 var screams = [...Array(SCREAM_COUNT).keys()].map(i => new Audio(SCREAM_DIR + (i + 1) + ".wav"));
-var ambiances = [...Array(AMBIANCE_COUNT).keys()].map(i => new Audio(AMBIANCE_DIR + (i + 1) + ".mp3"));
+var ambiances = shuffle([...Array(AMBIANCE_COUNT).keys()].map(i => new Audio(AMBIANCE_DIR + (i + 1) + ".mp3")));
 
 let current_scream_id = -1;
 let current_ambiance_id = -1;
@@ -70,12 +70,21 @@ function playScreamClip() {
 function nextAmbiance() {
   stopClip(ambiances[current_ambiance_id]);
 
-  current_ambiance_id = getRandomInt(AMBIANCE_COUNT, current_ambiance_id);
+  current_ambiance_id = current_ambiance_id + 1;
+
+  if (++current_ambiance_id > (ambiances.length - 1)) {
+    ambiances = shuffle(ambiances);
+    current_ambiance_id = 0;
+  }
 
   playAmbiance(ambiances[current_ambiance_id]);
 
   changeTitle();
 };
+
+function shuffle(list) {
+  return list.sort(() => Math.random() - 0.5);
+}
 
 function changeTitle() {
   document.getElementById('track-title').innerHTML = getRandomTitle();
