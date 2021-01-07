@@ -1,24 +1,28 @@
-AUDIO_DIR = "assets/sounds/";
+const AUDIO_DIR = "assets/sounds/";
 
-SCREAM_COUNT = 24;
-SCREAM_DIR = AUDIO_DIR + "screams/";
+const SCREAM_COUNT = 19;
+const SCREAM_DIR = AUDIO_DIR + "screams/";
 
-AMBIANCE_COUNT = 20;
-AMBIANCE_DIR = AUDIO_DIR + "soundtracks/";
+const AMBIANCE_COUNT = 14;
+const AMBIANCE_DIR = AUDIO_DIR + "soundtracks/";
 
-var screams = [...Array(SCREAM_COUNT).keys()].map(i => new Audio(SCREAM_DIR + (i + 1) + ".wav"));
+var screams = shuffle([...Array(SCREAM_COUNT).keys()].map(i => new Audio(SCREAM_DIR + (i + 1) + ".mp3")));
 var ambiances = shuffle([...Array(AMBIANCE_COUNT).keys()].map(i => new Audio(AMBIANCE_DIR + (i + 1) + ".mp3")));
+
+const prefixes = ["Deadly","Death","Scarlet","Forbidden","Feral","Mourning","Destined","Hallowed","Demon","Death","Fallen","Demon","Slaves","Raven","Phantom", "Blood", "Satan", "Hell", "Thirsty", "Starving", "Corpse", "Goblin"];
+const suffixes = ["Embrace","Craving","Mistress","Betrayal","Secret","Love","Shadow","Hunger","Wine","Gravy","Sins","Moon","Spiders","Eternal","Sorrow","Light","Lament", "Moonlight", "Dungeons", "Torturer", "Yearnings", "Decay", "Silence", "Embers", "Rot"];
+const mixins = ["And", "Of The", "Of", "In", "With Endless", "Under The", "Betwixt The"];
 
 let current_scream_id = -1;
 let current_ambiance_id = -1;
 
-var prefixes = ["Deadly","Death","Scarlet","Forbidden","Feral","Mourning","Destined","Hallowed","Demon","Death","Fallen","Demon","Slaves","Raven","Phantom", "Blood", "Satan", "Hell", "Thirsty", "Starving", "Corpse"];
-var suffixes = ["Embrace","Craving","Mistress","Betrayal","Secret","Love","Shadow","Hunger","Wine","Gravy","Sins","Moon","Spiders","Eternal","Sorrow","Light","Lament", "Moonlight", "Dungeons", "Torturer", "Yearnings", "Decay", "Silence"];
-var mixins = ["And", "Of The", "Of", "In", "With Endless", "Under The", "Betwixt The"];
-
 let current_prefix_id = -1;
 let current_suffix_id = -1;
 let current_mixin_id = -1;
+
+const MIXIN_CHANCE = 0.3;
+
+const MAX_AMBIANCE_VOLUME = 0.7;
 
 function getRandomInt(max, lastValue = -1) {
   var randomInt = Math.floor(Math.random() * Math.floor(max));
@@ -37,7 +41,7 @@ function getRandomTitle() {
 
   var mixin = "";
 
-  if (Math.random() < 0.3) {
+  if (Math.random() < MIXIN_CHANCE) {
     current_mixin_id = getRandomInt(mixins.length, current_mixin_id);
     mixin = mixins[current_mixin_id] + " ";
   }
@@ -49,7 +53,7 @@ function stopClip(clip) {
   if (clip)
   {
     clip.pause();
-    clip.currentTime = 0
+    clip.currentTime = 0;
   }
 };
 
@@ -69,8 +73,6 @@ function playScreamClip() {
 
 function nextAmbiance() {
   stopClip(ambiances[current_ambiance_id]);
-
-  current_ambiance_id = current_ambiance_id + 1;
 
   if (++current_ambiance_id > (ambiances.length - 1)) {
     ambiances = shuffle(ambiances);
@@ -92,14 +94,14 @@ function changeTitle() {
 
 function playAmbiance(audio) {
   audio.addEventListener('timeupdate', function(){
-      var buffer = .75
+      var buffer = 0.5;
       if(this.currentTime > this.duration - buffer){
-          this.currentTime = 0.3
-          this.play()
+          this.currentTime = 0;
+          this.play();
       }
   });
 
-  audio.volume = 0.7;
+  audio.volume = MAX_AMBIANCE_VOLUME;
   audio.loop = true;
 
   audio.play();
