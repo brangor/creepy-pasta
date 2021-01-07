@@ -6,6 +6,10 @@ const SCREAM_DIR = AUDIO_DIR + "screams/";
 const AMBIANCE_COUNT = 14;
 const AMBIANCE_DIR = AUDIO_DIR + "soundtracks/";
 
+const CACKLE_COUNT = 2;
+const CACKLE_DIR = AUDIO_DIR + "laughs/";
+
+var cackles = shuffle([...Array(CACKLE_COUNT).keys()].map(i => new Audio(CACKLE_DIR + (i + 1) + ".mp3")));
 var screams = shuffle([...Array(SCREAM_COUNT).keys()].map(i => new Audio(SCREAM_DIR + (i + 1) + ".mp3")));
 var ambiances = shuffle([...Array(AMBIANCE_COUNT).keys()].map(i => new Audio(AMBIANCE_DIR + (i + 1) + ".mp3")));
 
@@ -13,6 +17,7 @@ const prefixes = ["Deadly","Death","Scarlet","Forbidden","Feral","Mourning","Des
 const suffixes = ["Embrace","Craving","Mistress","Betrayal","Secret","Love","Shadow","Hunger","Wine","Gravy","Sins","Moon","Spiders","Eternal","Sorrow","Light","Lament", "Moonlight", "Dungeons", "Torturer", "Yearnings", "Decay", "Silence", "Embers", "Rot"];
 const mixins = ["And", "Of The", "Of", "In", "With Endless", "Under The", "Betwixt The"];
 
+let current_cackle_id = -1;
 let current_scream_id = -1;
 let current_ambiance_id = -1;
 
@@ -60,7 +65,14 @@ function stopClip(clip) {
 function silencio() {
   stopClip(screams[current_scream_id]);
   stopClip(ambiances[current_ambiance_id]);
+  stopClip(cackles[current_cackle_id]);
   document.getElementById('track-title').innerHTML = "None";
+}
+
+function cackler() {
+  stopClip(cackles[current_cackle_id]);
+  current_cackle_id = getRandomInt(CACKLE_COUNT, current_cackle_id);
+  cackles[current_cackle_id].play();
 }
 
 function playScreamClip() {
