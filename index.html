@@ -11,28 +11,46 @@
   </head>
 
   <body>
-    <div id="header">
-      <h1 onclick="cackler()">Spookify</h1>
-    </div>
-
-    <div id="body">
-      <div id="info-panel">
-        <h3>Current track:</h3>
-        <span id="track-title">None</span>
+    <div id="container">
+      <div id="header">
+        <h1 onclick="cackler()">Spookify</h1>
       </div>
 
-      <div id="controls">
-        <button id="next-track-btn" onclick="nextAmbiance()">next track</button>
-        <button id="scream-btn" onclick="playScreamClip()">scream</button>
-        <button id="silencio-btn" class="inverted" onclick="silencio()">silencio</button>
-      </div>
+      <div id="body">
+        <div id="info-panel">
+          <h3>Current track:</h3>
+          <span id="track-title">None</span>
+        </div>
 
-      <div id="player">
-        <ReactPlayer
-          type = 'audio/mp3'
-        />
-      </div>
+        <div id="controls">
+          <button id="next-track-btn" onclick="nextAmbiance()">next track</button>
+          <button id="scream-btn" onclick="playScreamClip()">scream</button>
+          <button id="silencio-btn" class="inverted" onclick="silencio()">silencio</button>
+        </div>
 
+        <div id="player">
+          <ReactPlayer
+            type = 'audio/mp3'
+          />
+        </div>
+
+        <div id="whatthe">
+          <h3>What is this?</h3>
+          <p>
+            This is a silly website made to enhance spooky stories.
+          </p>
+          <p>
+            There are a variety of ambiences that may be played in the background of your story. You can select 'scream' to harness the power of a spooky scream.
+          </p>
+          <p>
+            I have produced all of these ambiances myself, carefully looping the audio for infinite playback. I have borrowed bits and pieces from online copyright free resources and supply them for any use as long as you do not use them in any copyrighted works.
+          </p>
+          <p>
+            May the world feel a little spookier for all of us. -B
+          </p>
+        </div>
+
+        </div>
       </div>
     </div>
   </body>
