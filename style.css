@@ -69,6 +69,37 @@ button {
   flex-grow: 2;
 }
 
+h1 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.track-row {
+  display: flex;
+  align-items: center;
+}
+
+.track-row span {
+  min-width: 5rem;
+}
+
+.track-note {
+  color: #999;
+  font-size: 0.9rem;
+  margin: 0 0 1rem 0.3rem;
+}
+
+#track-time {
+  padding: 0.5rem 0 0 0.3rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.track-row button {
+  font-size: 16px;
+  padding: 0.6rem;
+  margin: 0.3rem;
+}
+
 #controls {
   display: flex;
   flex-wrap: wrap;

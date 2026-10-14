@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="index.js"></script>
+    <title>Spookify tracks</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="header">
+        <h1><a href="index.html">Spookify</a></h1>
+      </div>
+
+      <div id="body">
+        <div id="info-panel">
+          <h3>Current track:</h3>
+          <span id="track-title">None</span>
+          <div id="track-time">–</div>
+        </div>
+
+        <p class="track-note">
+          Notes measured 2026-10-14 against the player's automatic loop (any intro plays once, then the rest
+          loops with a crossfade). Most tracks sit at -18 LUFS; "quieter" is relative to that.
+        </p>
+
+        <div id="track-list"></div>
+
+        <div id="controls">
+          <button id="silencio-btn" class="inverted" onclick="silencio()">silencio</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const NOTES = {
+        1: "Plays its 31 s quiet, brighter intro once, then loops the 2:49 drone with a 4 s crossfade. Peaks touch 0 dBFS.",
+        2: "Only 12 s once its 1 s fade-out is trimmed, so it loops often. 1 s crossfade.",
+        3: "4 s crossfade. Clean.",
+        4: "Low quality: 11 kHz at 28 kbps, so nothing above 5.5 kHz. Sounds muffled next to the others. 1 s crossfade.",
+        5: "A click in the recording about 2.3 s before the loop point. 1 s crossfade.",
+        6: "About 2 dB quieter. 1 s crossfade.",
+        7: "Plays an 8 s intro once, then loops 14 s. The loop builds to a loud ending, so each pass blends down about 12 dB over its 4 s crossfade: it sounds like the phrase restarting. Peaks touch 0 dBFS.",
+        8: "2 s crossfade. Clean.",
+        9: "About 8 dB quieter, so it'll sound much softer in the shuffle. 2 s crossfade.",
+        10: "1 s crossfade. Clean.",
+        11: "Its 1.6 s silent ending is trimmed. 4 s crossfade.",
+        12: "About 6 dB quieter. 0.5 s crossfade (longer ones cancelled).",
+        13: "0.5 s crossfade (longer ones cancelled). Clean.",
+        14: "A run of swells ending in a climax. Hand-picked loop (LOOP_REGIONS): its first big swell plays once as an intro, then it loops 9.4–29.5 s, dip to dip, with a 2 s crossfade. The climax and the clicks near the end are left out. About 8 dB quieter.",
+      };
+
+      const formatTime = seconds => Math.floor(seconds / 60) + ":" + String(Math.floor(seconds % 60)).padStart(2, "0");
+      setInterval(() => {
+        const now = ambiancePosition();
+        document.getElementById("track-time").textContent = now
+          ? `${formatTime(now.position)} / ${formatTime(now.duration)} · ${formatTime(now.duration - now.position)} left · ${now.loops ? "loop " + now.loops : "intro"}`
+          : "–";
+      }, 250);
+
+      // Boost (dB) each quiet track needs to reach -18 LUFS, from ffmpeg ebur128 on 2026-10-14; 14's is
+      // measured over its loop region (LOOP_REGIONS), which leaves out the climax that carried its average.
+      // For A/B listening only: playAmbiance caps it at the track's headroom, and the shuffle doesn't use it.
+      const LOUD = { 6: 2.0, 9: 7.7, 12: 6.1, 14: 8.4 };
+
+      function addTrack(name, url, noteText, boostDb = 0) {
+        const row = document.createElement("div");
+        row.className = "track-row";
+        row.innerHTML = `<span>${name}</span>`;
+
+        for (const [label, secondsBeforeLoop] of [["play", 0], ["hear the loop", 5]]) {
+          const button = document.createElement("button");
+          button.textContent = label;
+          button.onclick = async () => {
+            const title = document.getElementById("track-title");
+            title.textContent = name + (secondsBeforeLoop ? ", 5s before the loop" : "");
+            const applied = await playAmbiance(url, secondsBeforeLoop, boostDb);
+            if (boostDb && applied !== undefined) title.textContent += ` (+${applied.toFixed(1)} dB)`;
+          };
+          row.appendChild(button);
+        }
+        const note = document.createElement("p");
+        note.className = "track-note";
+        note.textContent = noteText || "";
+
+        document.getElementById("track-list").append(row, note);
+      }
+
+      for (let i = 1; i <= AMBIANCE_COUNT; i++) {
+        addTrack(`Track ${i}`, AMBIANCE_DIR + i + ".mp3", NOTES[i]);
+        if (LOUD[i]) {
+          addTrack(`${i} loud`, AMBIANCE_DIR + i + ".mp3",
+            `Plain gain in the player: wants +${LOUD[i]} dB to reach -18 LUFS, capped at what its loudest sample allows.`, LOUD[i]);
+        }
+      }
+    </script>
+  </body>
+</html>
