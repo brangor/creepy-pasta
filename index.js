@@ -234,6 +234,9 @@ function makeLoop(buffer, region) {
 async function playAmbiance(url, secondsBeforeLoop = 0, boostDb = 0) {
   stopAmbiance();
   const request = ambianceRequest;
+  // iOS suspends Web Audio when the screen locks unless the page holds a playback audio session
+  // (honoured from iOS 17.5, WebKit bug 261554); it also stops the silent switch muting it.
+  if (navigator.audioSession) navigator.audioSession.type = "playback";
   audioContext = audioContext || new AudioContext();
   audioContext.resume();
 
